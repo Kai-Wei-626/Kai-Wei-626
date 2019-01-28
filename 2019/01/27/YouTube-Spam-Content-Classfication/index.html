@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. Introduction: YouTube Comment Spam Filtering ClassificationThe spam comments of YouTube videos started to spread after YouTube has adopted a rewarding system to video producer. Given this scenario,">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YouTube Spam Content Classfication">
+<meta property="og:url" content="http://yoursite.com/2019/01/27/YouTube-Spam-Content-Classfication/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. Introduction: YouTube Comment Spam Filtering ClassificationThe spam comments of YouTube videos started to spread after YouTube has adopted a rewarding system to video producer. Given this scenario,">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://user-images.githubusercontent.com/43118998/51814913-eaabe880-227a-11e9-8b53-26a3008570c9.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/43118998/51814835-7e30e980-227a-11e9-97c7-c12fd3d862ee.png">
+<meta property="og:updated_time" content="2019-01-28T04:37:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YouTube Spam Content Classfication">
+<meta name="twitter:description" content="1. Introduction: YouTube Comment Spam Filtering ClassificationThe spam comments of YouTube videos started to spread after YouTube has adopted a rewarding system to video producer. Given this scenario,">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/43118998/51814913-eaabe880-227a-11e9-8b53-26a3008570c9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/27/YouTube-Spam-Content-Classfication/">
+
+
+
+
+
+  <title>YouTube Spam Content Classfication | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/27/YouTube-Spam-Content-Classfication/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">YouTube Spam Content Classfication</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-27T20:59:17-07:00">
+                2019-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/27/YouTube-Spam-Content-Classfication/" class="leancloud_visitors" data-flag-title="YouTube Spam Content Classfication">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-Introduction-YouTube-Comment-Spam-Filtering-Classification"><a href="#1-Introduction-YouTube-Comment-Spam-Filtering-Classification" class="headerlink" title="1. Introduction: YouTube Comment Spam Filtering Classification"></a>1. Introduction: YouTube Comment Spam Filtering Classification</h1><p>The spam comments of YouTube videos started to spread after YouTube has adopted a rewarding system to video producer. Given this scenario, it is critical to develop a method to filter out the malicious comments. This analysis presents a comprehensive performance evaluation of several well-known machine learning techniques that can be applied to automatically filter such undesired messages.[1]<br> <a id="more"></a><br>The dataset I obtained from UCI repository contains 1956 comments for 5 YouTube videos. The dataset also has associated a metadata information, such as the author’s name and publication date, which have been preserved.</p>
+<h1 id="2-Data-preprocessing-bags-of-words"><a href="#2-Data-preprocessing-bags-of-words" class="headerlink" title="2. Data preprocessing: bags of words"></a>2. Data preprocessing: bags of words</h1><p>For the experiments, we have first processed the dataset, in which, only the texts of comments were used, discarding associated metadata.<br>I employed the bag-of-words model and frequency representation. Bags-of-words is a way of extracting features from text and presenting a text object in a vector based on the occurrence of word counts.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## loop throught data on github</span></span><br><span class="line">df = pd.DataFrame()</span><br><span class="line">url_list = [<span class="string">'Youtube01-Psy.csv'</span>, <span class="string">'Youtube02-KatyPerry.csv'</span>, <span class="string">'Youtube03-LMFAO.csv'</span>,<span class="string">'Youtube04-Eminem.csv'</span>, <span class="string">'Youtube05-Shakira.csv'</span>]</span><br><span class="line"><span class="keyword">for</span> url_i <span class="keyword">in</span> url_list:</span><br><span class="line">    url = <span class="string">'https://raw.githubusercontent.com/Kai-Wei-626/ML/master/'</span> + url_i</span><br><span class="line">    df_i = pd.read_csv(url)</span><br><span class="line">    df = pd.concat([df, df_i])</span><br><span class="line"></span><br><span class="line">df = df.reset_index()</span><br><span class="line">df = df.drop([<span class="string">'index'</span>], axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## convert text to bags of word representation</span></span><br><span class="line">text = df.CONTENT</span><br><span class="line">count = CountVectorizer()</span><br><span class="line">bag_of_words = count.fit_transform(text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show feature matrix</span></span><br><span class="line">bag_of_words.toarray()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get feature names</span></span><br><span class="line">feature_names = count.get_feature_names()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create data frame</span></span><br><span class="line">df_text = pd.DataFrame(bag_of_words.toarray(), columns=feature_names)</span><br></pre></td></tr></table></figure></p>
+<h1 id="3-Methodology"><a href="#3-Methodology" class="headerlink" title="3. Methodology"></a>3. Methodology</h1><p>The classification methods evaluated in this analysis are listed in Table below</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Item</th>
+<th style="text-align:right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NN</td>
+<td style="text-align:right">Neural Network</td>
+</tr>
+<tr>
+<td style="text-align:left">CART</td>
+<td style="text-align:right">Decision Tree</td>
+</tr>
+<tr>
+<td style="text-align:left">GBM</td>
+<td style="text-align:right">Boosting Tree</td>
+</tr>
+<tr>
+<td style="text-align:left">SVM-linear</td>
+<td style="text-align:right">Support Vector Machine – Linear kernel</td>
+</tr>
+<tr>
+<td style="text-align:left">k-NN</td>
+<td style="text-align:right">k - Nearest Neighbor</td>
+</tr>
+</tbody>
+</table>
+<p>To apply each algorithm on the data, I separate dataset into train and test data, and then apply scikit-learn packages to create models. To compare algorithms performance, I have employed measures such as accuracy, precision, recall rate and F1 score.<br>In this case, false positive represents the samples that are legitimate comments but are falsely classified as positive, while false negative represents the samples that are spam but are classified as positive. Since a blocked legitimate comment is more harmful than a non-caught spam, both precision and recall are important to check the balance between amount of false positive cases and false negative cases.</p>
+<h1 id="4-Result"><a href="#4-Result" class="headerlink" title="4. Result"></a>4. Result</h1><p>Table below presents the results achieved by the classifiers over the training data and test data. The results are shown in Accuracy, Precision, Recall and F1 score and bold values indicate the highest score for each performance measure. The results indicate that evaluated classification methods are suitable to automatically filter comment spam posted on YouTube. The most of evaluated methods were able to achieve accuracy rates higher than 90%.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Methods</th>
+<th style="text-align:left">Accuracy</th>
+<th style="text-align:left">Precision</th>
+<th style="text-align:left">Recall</th>
+<th style="text-align:left">F1 score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CART</td>
+<td style="text-align:left">87.7</td>
+<td style="text-align:left">96.6</td>
+<td style="text-align:left">80.5</td>
+<td style="text-align:left">87.8</td>
+</tr>
+<tr>
+<td style="text-align:left">NN</td>
+<td style="text-align:left">93.8</td>
+<td style="text-align:left">97.5</td>
+<td style="text-align:left">91.2</td>
+<td style="text-align:left">94.3</td>
+</tr>
+<tr>
+<td style="text-align:left">GBM</td>
+<td style="text-align:left">94.6</td>
+<td style="text-align:left">97.4</td>
+<td style="text-align:left">89.8</td>
+<td style="text-align:left">93.4</td>
+</tr>
+<tr>
+<td style="text-align:left">SVM-linear</td>
+<td style="text-align:left">94.9</td>
+<td style="text-align:left">97.1</td>
+<td style="text-align:left">93.5</td>
+<td style="text-align:left">95.3</td>
+</tr>
+<tr>
+<td style="text-align:left">k-NN</td>
+<td style="text-align:left">86.9</td>
+<td style="text-align:left">98.8</td>
+<td style="text-align:left">77.3</td>
+<td style="text-align:left">86.7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-1-sample-code-for-create-a-decision-tree-model"><a href="#4-1-sample-code-for-create-a-decision-tree-model" class="headerlink" title="4.1 sample code for create a decision tree model."></a>4.1 sample code for create a decision tree model.</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start training</span></span><br><span class="line">y = df.CLASS</span><br><span class="line">X = df_text</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## decision tree</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DTClassfier</span><span class="params">(X_train, X_test, y_train, y_test)</span>:</span></span><br><span class="line">    clf = DecisionTreeClassifier(criterion = <span class="string">'entropy'</span>, max_depth = <span class="number">5</span>, random_state=<span class="number">42</span>)</span><br><span class="line">    clf.fit(X_train, y_train)</span><br><span class="line">    y_pred = clf.predict(X_train)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'Decision Tree: '</span>)</span><br><span class="line">    print(<span class="string">'training data metrics: '</span>)</span><br><span class="line">    print(<span class="string">'accuracy score: '</span>, accuracy_score(y_train, y_pred)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'precision: '</span>, precision_score(y_train, y_pred)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'recall: '</span>, recall_score(y_train, y_pred)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'F1_score: '</span>, f1_score(y_train, y_pred)*<span class="number">100</span>)    </span><br><span class="line">    <span class="comment">#print('confusion matrix: ',   confusion_matrix(y_train, y_pred)) </span></span><br><span class="line">    y_pred_test = clf.predict(X_test)</span><br><span class="line">    print(<span class="string">'testing data metrics: '</span>)</span><br><span class="line">    print(<span class="string">'accuracy score: '</span>, accuracy_score(y_test, y_pred_test)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'precision: '</span>, precision_score(y_test, y_pred_test)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'recall: '</span>, recall_score(y_test, y_pred_test)*<span class="number">100</span>)</span><br><span class="line">    print(<span class="string">'F1_score: '</span>, f1_score(y_test, y_pred_test)*<span class="number">100</span>)    </span><br><span class="line"></span><br><span class="line">DTClassfier(X_train, X_test, y_train, y_test)</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-Export-decision-tree-model-by-using-graphviz"><a href="#4-2-Export-decision-tree-model-by-using-graphviz" class="headerlink" title="4.2 Export decision tree model by using graphviz"></a>4.2 Export decision tree model by using graphviz</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</span><br><span class="line"><span class="keyword">import</span> graphviz </span><br><span class="line">dot_data = tree.export_graphviz(clf, out_file=<span class="keyword">None</span>) </span><br><span class="line">graph = graphviz.Source(dot_data) </span><br><span class="line">graph.render(<span class="string">'tube'</span>) </span><br><span class="line"></span><br><span class="line">dot_data = tree.export_graphviz(clf, out_file=<span class="keyword">None</span>, </span><br><span class="line">                     feature_names=X_train.columns,  </span><br><span class="line">                     class_names=y_train.name,  </span><br><span class="line">                     filled=<span class="keyword">True</span>, rounded=<span class="keyword">True</span>,  </span><br><span class="line">                     special_characters=<span class="keyword">True</span>)  </span><br><span class="line">graph = graphviz.Source(dot_data)  </span><br><span class="line">graph</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/43118998/51814913-eaabe880-227a-11e9-8b53-26a3008570c9.png" alt="tube1"></p>
+<h2 id="4-3-Sample-Code-for-PCA-for-Visiualization"><a href="#4-3-Sample-Code-for-PCA-for-Visiualization" class="headerlink" title="4.3 Sample Code for PCA for Visiualization"></a>4.3 Sample Code for PCA for Visiualization</h2><p>For SVM, it is important to understand which kernel function to select. Therefore, I reduce the training data dimensions to 2 by applying PCA methods, and plot the Principal Components to the 2-dimensional scatter plot, which is presented by figure below. The figure indicate that the data points can be separated linearly, thus I applied a linear kernel to the SVM model.</p>
+<p><img src="https://user-images.githubusercontent.com/43118998/51814835-7e30e980-227a-11e9-97c7-c12fd3d862ee.png" alt="tubecommentpca_visual"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PCA_2</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    input: X, y</span></span><br><span class="line"><span class="string">    output: a df has 2 principal components</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    </span><br><span class="line">    pca = PCA(n_components=<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    principalComponents = pca.fit_transform(X)</span><br><span class="line">    </span><br><span class="line">    principalDf = pd.DataFrame(data = principalComponents</span><br><span class="line">                 , columns = [<span class="string">'principal component 1'</span>, <span class="string">'principal component 2'</span>])</span><br><span class="line">    </span><br><span class="line">    finalDf = pd.concat([principalDf,y], axis = <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> finalDf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">finalDf = PCA_2(X_pca, y_pca)</span><br><span class="line">final_X = finalDf[[<span class="string">'principal component 1'</span>, <span class="string">'principal component 2'</span>]]</span><br><span class="line">final_y = finalDf[<span class="string">'CLASS'</span>]</span><br><span class="line"></span><br><span class="line">X_train_pca, X_test_pca, y_train_pca, y_test_pca = train_test_split(final_X, final_y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># PCA scatter plot</span></span><br><span class="line">fig = plt.figure(figsize = (<span class="number">8</span>,<span class="number">8</span>))</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>) </span><br><span class="line">ax.set_xlabel(<span class="string">'Principal Component 1'</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">'Principal Component 2'</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">ax.set_title(<span class="string">'2 component PCA'</span>, fontsize = <span class="number">20</span>)</span><br><span class="line">targets = [<span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">colors = [<span class="string">'r'</span>, <span class="string">'g'</span>]</span><br><span class="line"><span class="keyword">for</span> target, color <span class="keyword">in</span> zip(targets,colors):</span><br><span class="line">    indicesToKeep = finalDf[<span class="string">'CLASS'</span>] == target</span><br><span class="line">    ax.scatter(finalDf.loc[indicesToKeep, <span class="string">'principal component 1'</span>]</span><br><span class="line">               , finalDf.loc[indicesToKeep, <span class="string">'principal component 2'</span>]</span><br><span class="line">               , c = color</span><br><span class="line">               , s = <span class="number">50</span>)</span><br><span class="line">ax.legend(targets)</span><br><span class="line">ax.grid()</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-K-NN"><a href="#4-4-K-NN" class="headerlink" title="4.4 K-NN"></a>4.4 K-NN</h2><p>k-NN presents the worst performance as well as it took longest time to train. K-NN is slow in both training process and test process, which is because for each point the algorithm has to compute the distance between it and every point and then find closest k points. In other words, K-NN does not generalize over data in advance. </p>
+<h1 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5. Conclusion"></a>5. Conclusion</h1><p>YouTube is a video content publication platform with social network features. The platform was flooded by undesired content, usually made of low quality information known as spam, posted by users looking for self-promotion or to disseminate malicious links.[1]<br>The results have indicated that the most of evaluated classification methods are be able to achieve over 90% accuracy on filtering spam content. Overall, SVM-linear has highest performance. </p>
+<h1 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h1><p>[1] <a href="http://www.dt.fee.unicamp.br/~tiago//youtubespamcollection/" target="_blank" rel="noopener">http://www.dt.fee.unicamp.br/~tiago//youtubespamcollection/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/07/Leetcode-Sqrt and sqrt with k precisions/" rel="next" title="Leetcode - Sqrt and Sqrt k precision">
+                <i class="fa fa-chevron-left"></i> Leetcode - Sqrt and Sqrt k precision
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kai Wei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Introduction-YouTube-Comment-Spam-Filtering-Classification"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction: YouTube Comment Spam Filtering Classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Data-preprocessing-bags-of-words"><span class="nav-number">2.</span> <span class="nav-text">2. Data preprocessing: bags of words</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Methodology"><span class="nav-number">3.</span> <span class="nav-text">3. Methodology</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Result"><span class="nav-number">4.</span> <span class="nav-text">4. Result</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-sample-code-for-create-a-decision-tree-model"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 sample code for create a decision tree model.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Export-decision-tree-model-by-using-graphviz"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.2 Export decision tree model by using graphviz</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Sample-Code-for-PCA-for-Visiualization"><span class="nav-number">4.2.</span> <span class="nav-text">4.3 Sample Code for PCA for Visiualization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-K-NN"><span class="nav-number">4.3.</span> <span class="nav-text">4.4 K-NN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Conclusion"><span class="nav-number">5.</span> <span class="nav-text">5. Conclusion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Reference"><span class="nav-number">6.</span> <span class="nav-text">6. Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai Wei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vdCTnoQ9J7cwUWRgAAM2UeRx-gzGzoHsz", "JB5RTAMwMzH8RjugUBVjs2qr");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
